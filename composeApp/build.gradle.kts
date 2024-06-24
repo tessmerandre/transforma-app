@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
+    kotlin("plugin.serialization") version libs.versions.kotlin.get()
 }
 
 kotlin {
@@ -27,18 +28,43 @@ kotlin {
     }
     
     sourceSets {
+        iosMain.dependencies {
+            implementation(libs.ktor.marwin)
+        }
         
         androidMain.dependencies {
             implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
+
+            implementation(libs.ktor.android)
+
+            implementation(project.dependencies.platform(libs.koin.bom.get()))
+            implementation(libs.koin.android)
         }
+
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
-            implementation(compose.material)
+            implementation(compose.material3)
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
+
+            implementation(libs.lifecycle.viewmodel)
+
+            implementation(libs.navigation.compose)
+
+            implementation(project.dependencies.platform(libs.supabase.bom.get()))
+            implementation(libs.supabase.postegres)
+            implementation(libs.supabase.auth)
+            implementation(libs.supabase.storage)
+            implementation(libs.supabase.gotrue)
+
+            implementation(libs.ktor.core)
+
+            implementation(project.dependencies.platform(libs.koin.bom.get()))
+            api(libs.koin.core)
+            implementation(libs.koin.compose)
         }
     }
 }
