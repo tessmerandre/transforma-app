@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.compose.compiler)
     kotlin("plugin.serialization") version libs.versions.kotlin.get()
 }
 
@@ -33,13 +34,9 @@ kotlin {
         }
         
         androidMain.dependencies {
-            implementation(libs.compose.ui.tooling.preview)
+            implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
-
             implementation(libs.ktor.android)
-
-            implementation(project.dependencies.platform(libs.koin.bom.get()))
-            implementation(libs.koin.android)
         }
 
         commonMain.dependencies {
@@ -50,9 +47,12 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
 
-            implementation(libs.lifecycle.viewmodel)
-
             implementation(libs.navigation.compose)
+            implementation(libs.viewmodel.compose)
+
+            implementation(libs.koin.core)
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
 
             implementation(project.dependencies.platform(libs.supabase.bom.get()))
             implementation(libs.supabase.postegres)
@@ -61,10 +61,6 @@ kotlin {
             implementation(libs.supabase.gotrue)
 
             implementation(libs.ktor.core)
-
-            implementation(project.dependencies.platform(libs.koin.bom.get()))
-            api(libs.koin.core)
-            implementation(libs.koin.compose)
         }
     }
 }
@@ -99,7 +95,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
     dependencies {
-        debugImplementation(libs.compose.ui.tooling)
+        debugImplementation(compose.uiTooling)
     }
 }
 

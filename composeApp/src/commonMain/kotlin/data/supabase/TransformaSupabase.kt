@@ -10,9 +10,11 @@ import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.postgrest.query.PostgrestQueryBuilder
 import io.github.jan.supabase.storage.Storage
 
-private const val SUPABASE_URL = ""
-private const val SUPABASE_KEY = ""
-private const val GOOGLE_SERVER_CLIENT_ID = ""
+private const val SUPABASE_URL = "https://bahsvnqmjcsyeslxuknn.supabase.co"
+
+private const val SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJhaHN2bnFtamNzeWVzbHh1a25uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTU5NjYwMDEsImV4cCI6MjAzMTU0MjAwMX0.c1yKL9VGM3kuKFt7kG9V1kI5ajkKdszI-1EplbzcRBw"
+
+private const val GOOGLE_SERVER_CLIENT_ID = "254342349593-4v8sduav7j24q6po90ajo0jlash7bu3f.apps.googleusercontent.com"
 
 fun createTransformaSupabaseClient(): SupabaseClient {
     return createSupabaseClient(

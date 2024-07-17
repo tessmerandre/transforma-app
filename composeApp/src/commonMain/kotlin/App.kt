@@ -4,35 +4,23 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.koin.compose.KoinContext
 import ui.feed.FeedScreen
 import ui.home.HomeScreen
+import ui.navigation.SetupNavGraph
 
 @Composable
 @Preview
 fun App() {
     MaterialTheme {
-        val navController = rememberNavController()
-        NavHost(
-            navController = navController,
-            startDestination = Routes.HOME
-        ) {
-            composable(Routes.HOME) {
-                HomeScreen(
-                    goToFeed = {
-                        navController.navigate(Routes.FEED)
-                    }
-                )
-            }
-            composable(Routes.FEED) {
-                FeedScreen(
-                    onBackPressed = {
-                        navController.navigateUp()
-                    }
-                )
-            }
+        KoinContext {
+            val navController = rememberNavController()
+            SetupNavGraph(navController)
         }
     }
 }
+
+
 
 data object Routes {
     const val HOME = "home"

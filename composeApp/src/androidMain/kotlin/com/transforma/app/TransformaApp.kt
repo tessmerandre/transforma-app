@@ -1,11 +1,11 @@
 package com.transforma.app
 
-import KoinInitializer
 import android.app.Application
+import di.initializeKoin
 
 class TransformaApp : Application() {
     override fun onCreate() {
         super.onCreate()
-        KoinInitializer(applicationContext).init()
+        initializeKoin()
     }
 }

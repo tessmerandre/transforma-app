@@ -162,7 +162,7 @@ proguard/
 /*/out
 /*/*/build
 /*/*/production
-.navigation/
+.ui.navigation/
 *.ipr
 *~
 *.swp
