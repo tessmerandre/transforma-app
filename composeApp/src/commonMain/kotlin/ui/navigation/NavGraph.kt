@@ -4,7 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import ui.feed.FeedScreen
+import androidx.navigation.toRoute
+import ui.feed.DetailScreen
 import ui.home.HomeScreen
 import ui.login.LoginScreen
 
@@ -19,23 +20,24 @@ fun SetupNavGraph(
     ) {
         composable<Screen.Login> {
             LoginScreen(
-                goToFeed = {
-                    navController.navigate(Screen.Detail(itemId = it.id))
+                goToHome = {
+                    navController.navigate(Screen.Home)
                 }
             )
         }
         composable<Screen.Home> {
             HomeScreen(
-                goToFeed = {
+                onItemClick = {
                     navController.navigate(Screen.Detail(itemId = it.id))
                 }
             )
         }
         composable<Screen.Detail> {
-            FeedScreen(
-                onBackPressed = {
-                    navController.popBackStack()
-                }
+            val route = it.toRoute<Screen.Detail>()
+
+            DetailScreen(
+                itemId = route.itemId, // move to ViewModel savedStateHandle
+                onBackPressed = navController::popBackStack
             )
         }
     }

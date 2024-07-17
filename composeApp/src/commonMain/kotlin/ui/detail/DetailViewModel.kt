@@ -1,10 +1,10 @@
-package ui.feed
+package ui.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 
-class FeedViewModel : ViewModel() {
+class DetailViewModel : ViewModel() {
 
     fun test() {
         viewModelScope.launch {

@@ -16,6 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import co.touchlab.kermit.Logger
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.compose.auth.composable.NativeSignInResult
@@ -25,43 +26,25 @@ import io.github.jan.supabase.compose.auth.composeAuth
 import io.github.jan.supabase.gotrue.auth
 import io.github.jan.supabase.gotrue.providers.Google
 import org.koin.compose.koinInject
+import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.annotation.KoinExperimentalAPI
+import ui.detail.DetailViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, KoinExperimentalAPI::class)
 @Composable
-fun FeedScreen(
+fun DetailScreen(
+    itemId: Int,
     onBackPressed: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: FeedViewModel = koinInject(),
+    viewModel: DetailViewModel = koinViewModel(),
     supabase: SupabaseClient = koinInject()
 ) {
-    val appleLogin = supabase.composeAuth.rememberSignInWithApple(
-        onResult = {},
-        fallback = {}
-    )
-    val googleLogin = supabase.composeAuth.rememberSignInWithGoogle(
-        onResult = { result -> //optional error handling
-            Logger.i("PD: auth result: $result")
-            when (result) {
-                is NativeSignInResult.Success -> {
-                    supabase.auth.currentSessionOrNull()
-                }
-                is NativeSignInResult.ClosedByUser -> {}
-                is NativeSignInResult.Error -> {}
-                is NativeSignInResult.NetworkError -> {}
-            }
-        },
-        fallback = { // optional: add custom error handling, not required by default
-            Logger.i("PD: fallback")
-            supabase.auth.signInWith(Google)
-        }
-    )
-
     Scaffold(
         modifier = modifier,
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
-                    Text("Feed")
+                    Text("Detail")
                 },
                 navigationIcon = {
                     IconButton(
@@ -81,19 +64,9 @@ fun FeedScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(paddingValues = padding),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Button(
-                    onClick = { googleLogin.startFlow() } //optional: you can also pass in extra data for the user like a name. A nonce is automatically generated, but you can also pass in a custom nonce
-                ) {
-                    Text("Google Login")
-                }
-                Button(
-                    onClick = { appleLogin.startFlow() } //optional: you can also pass in extra data for the user like a name. A nonce is automatically generated, but you can also pass in a custom nonce
-                ) {
-                    Text("Apple Login")
-                }
+                Text("Item $itemId")
             }
         }
     )

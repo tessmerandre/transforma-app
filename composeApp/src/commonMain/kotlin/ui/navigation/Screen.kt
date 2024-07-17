@@ -8,5 +8,5 @@ sealed class Screen {
     @Serializable
     data object Home : Screen()
     @Serializable
-    data class Detail(val itemId: String) : Screen()
+    data class Detail(val itemId: Int) : Screen()
 }
