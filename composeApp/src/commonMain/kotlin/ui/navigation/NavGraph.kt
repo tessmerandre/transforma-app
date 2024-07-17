@@ -4,6 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import ui.feed.FeedScreen
+import ui.home.HomeScreen
+import ui.login.LoginScreen
 
 @Composable
 fun SetupNavGraph(
@@ -14,16 +17,23 @@ fun SetupNavGraph(
         navController = navController,
         startDestination = startDestination
     ) {
-        composable(route = Screen.Home.route) {
-            HomeScreen(
-                navigateToDetails = {
-                    navController.navigate(Screen.Detail.route)
+        composable<Screen.Login> {
+            LoginScreen(
+                goToFeed = {
+                    navController.navigate(Screen.Detail(itemId = it.id))
                 }
             )
         }
-        composable(route = Screen.Detail.route) {
-            DetailScreen(
-                navigateToHome = {
+        composable<Screen.Home> {
+            HomeScreen(
+                goToFeed = {
+                    navController.navigate(Screen.Detail(itemId = it.id))
+                }
+            )
+        }
+        composable<Screen.Detail> {
+            FeedScreen(
+                onBackPressed = {
                     navController.popBackStack()
                 }
             )

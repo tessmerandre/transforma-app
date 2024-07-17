@@ -20,7 +20,7 @@ import org.koin.core.annotation.KoinExperimentalAPI
 fun LoginScreen(
     goToFeed: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: LoginViewModel = koinViewModel()
+//    viewModel: LoginViewModel = koinViewModel() 
 ) {
     Scaffold(
         modifier = modifier,
